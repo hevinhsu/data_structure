@@ -154,10 +154,10 @@ public class AvlTree<T extends Comparable<T>> {
 	/*
 
 		A                   A                                    B
-	 / \                 / \                                  / \
-  x   B      ->       x   y   +    B           ->          A   C
+	       / \                 / \                                  / \
+              x   B      ->       x   y   +    B           ->          A   C
 		 / \                            \                     / \
-    y   C                            C                   x   y
+                y   C                            C                   x   y
 
 	 */
 	private AvlTreeTreeNode<T> leftRotate(AvlTreeTreeNode<T> node) {
