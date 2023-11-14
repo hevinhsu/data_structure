@@ -1,6 +1,6 @@
 package org.example.list;
 
-public class MySingleLinkedList<T extends Comparable> implements List<T> {
+public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
 
 
 	private Node<T> head;
