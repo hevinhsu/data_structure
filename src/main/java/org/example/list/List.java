@@ -1,7 +1,6 @@
 package org.example.list;
 
-public interface List<T extends Comparable<T>> {
-
+public interface List<T> {
 
 
 	void insert(T element);
