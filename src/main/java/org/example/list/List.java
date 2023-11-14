@@ -1,6 +1,6 @@
 package org.example.list;
 
-public interface List<T> {
+public interface List<T extends Comparable> {
 
 
 
@@ -11,6 +11,9 @@ public interface List<T> {
 
 
 	void delete(T element);
+
+
+	T search(T element);
 
 
 }

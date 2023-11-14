@@ -88,6 +88,16 @@ public class MySingleLinkedListTest {
 		System.out.println();
 		System.out.println();
 		System.out.println(l);
+
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(l.search(7));
+
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(l.search(4));
 	}
 
 }

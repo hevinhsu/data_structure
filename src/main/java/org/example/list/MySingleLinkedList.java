@@ -1,6 +1,6 @@
 package org.example.list;
 
-public class MySingleLinkedList<T> implements List<T> {
+public class MySingleLinkedList<T extends Comparable> implements List<T> {
 
 
 	private Node<T> head;
@@ -89,6 +89,16 @@ public class MySingleLinkedList<T> implements List<T> {
 
 		// handle remove tail
 		node.next = null;
+	}
+
+	@Override
+	public T search(T element) {
+		Node<T> node = head;
+		while(node!= null && !node.value.equals(element)) {
+			node = node.next;
+		}
+
+		return node.value;
 	}
 
 
