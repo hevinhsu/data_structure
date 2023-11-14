@@ -1,6 +1,6 @@
 package org.example.list;
 
-public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
+public class MySingleLinkedList<T> implements List<T> {
 
 
 	private Node<T> head;
@@ -57,7 +57,7 @@ public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
 	@Override
 	public void delete(T element) {
 
-		if(head == null) {
+		if (head == null) {
 			return;
 		}
 
@@ -67,25 +67,22 @@ public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
 			return;
 		}
 
-
 		Node<T> node = head;
 
 		while (node.next != null && !node.next.value.equals(element)) {
 			node = node.next;
 		}
 
-		if(node.next == null || !node.next.value.equals(element)) {
+		if (node.next == null || !node.next.value.equals(element)) {
 			System.out.println("element not existed");
 			return;
 		}
 
-
 		// handle normal remove
-		if(node.next.next != null) {
+		if (node.next.next != null) {
 			node.next = node.next.next;
 			return;
 		}
-
 
 		// handle remove tail
 		node.next = null;
@@ -94,11 +91,11 @@ public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
 	@Override
 	public T search(T element) {
 		Node<T> node = head;
-		while(node!= null && !node.value.equals(element)) {
+		while (node != null && !node.value.equals(element)) {
 			node = node.next;
 		}
 
-		return node.value;
+		return node == null ? null : node.value;
 	}
 
 
@@ -108,12 +105,12 @@ public class MySingleLinkedList<T extends Comparable<T>> implements List<T> {
 
 		sb.append("SingleLinkedList:\n");
 		Node<T> node = head;
-		if(node == null) {
+		if (node == null) {
 			sb.append("LIST IS EMPTY");
 			return sb.toString();
 		}
 
-		while(node != null) {
+		while (node != null) {
 			sb.append(node.value);
 			sb.append(" -> ");
 			node = node.next;
