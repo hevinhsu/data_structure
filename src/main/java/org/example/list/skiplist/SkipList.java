@@ -29,27 +29,48 @@ public class SkipList<T extends Comparable<T>> implements List<T> {
 	public static void main(String[] args) {
 
 		SkipList<Integer> integerSkipList = new SkipList<>();
+		System.out.println("Create empty List:");
 		System.out.println(integerSkipList);
+
+		System.out.println();
+		System.out.println("Insert 1 element:");
 		integerSkipList.insert(1);
 		System.out.println(integerSkipList);
+
+		System.out.println();
+		System.out.println("Delete the only element:");
 		integerSkipList.delete(1);
 		System.out.println(integerSkipList);
+
+		System.out.println();
+		System.out.println("Insert 10 elements:");
 		for (int i = 0; i < 10; i++) {
 			integerSkipList.insert(i);
 		}
-
 		System.out.println(integerSkipList);
+
+		System.out.println();
+		System.out.println("Delete element: 0:");
 		integerSkipList.delete(0);
 		System.out.println(integerSkipList);
-		integerSkipList.search(1);
 
-		System.out.println(integerSkipList);
+		integerSkipList.search(8);
 
-		integerSkipList.search(1);
+		System.out.println();
+		integerSkipList.search(88);
 
+		System.out.println();
+		System.out.println("Delete element 6:");
 		integerSkipList.delete(6);
 		System.out.println(integerSkipList);
 
+		System.out.println();
+		System.out.println("Delete non existed element 77:");
+		integerSkipList.delete(77);
+		System.out.println(integerSkipList);
+
+		System.out.println();
+		System.out.println("Update element 2 to 11:");
 		integerSkipList.update(Integer.valueOf(2), Integer.valueOf(11));
 		System.out.println(integerSkipList);
 	}
@@ -165,6 +186,7 @@ public class SkipList<T extends Comparable<T>> implements List<T> {
  */
 	@Override
 	public T search(T element) {
+		System.out.printf("Search element %s: %n", element);
 		SkipListNode<T> node = head;
 		int x = -1, y = MAX_LEVEL - 1;
 		int step = 0;
