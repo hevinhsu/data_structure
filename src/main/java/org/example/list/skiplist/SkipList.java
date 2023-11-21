@@ -22,25 +22,36 @@ public class SkipList<T extends Comparable<T>> implements List<T> {
 		head = new SkipListNode<>(null, MAX_LEVEL);  /* head does not contain any real element. */
 	}
 
+	public boolean isEmpty() {
+		return head.next[0] == null || head.next[0].next == null;
+	}
+
 	public static void main(String[] args) {
 
 		SkipList<Integer> integerSkipList = new SkipList<>();
+		System.out.println(integerSkipList);
+		integerSkipList.insert(1);
+		System.out.println(integerSkipList);
+		integerSkipList.delete(1);
+		System.out.println(integerSkipList);
 		for (int i = 0; i < 10; i++) {
 			integerSkipList.insert(i);
 		}
 
+		System.out.println(integerSkipList);
 		integerSkipList.delete(0);
 		System.out.println(integerSkipList);
+		integerSkipList.search(1);
 
-//		System.out.println(integerSkipList);
+		System.out.println(integerSkipList);
 
-//		integerSkipList.search(1);
+		integerSkipList.search(1);
 
-//		integerSkipList.delete(6);
-//		System.out.println(integerSkipList);
+		integerSkipList.delete(6);
+		System.out.println(integerSkipList);
 
-//		integerSkipList.update(Integer.valueOf(2), Integer.valueOf(11));
-//		System.out.println(integerSkipList);
+		integerSkipList.update(Integer.valueOf(2), Integer.valueOf(11));
+		System.out.println(integerSkipList);
 	}
 
 
@@ -94,16 +105,43 @@ public class SkipList<T extends Comparable<T>> implements List<T> {
 
 		SkipListNode<T>[] prevNodes = getSkipListNodes(element, node);
 
-		if(prevNodes[0].next[0] == null || prevNodes[0].next[0].value.compareTo(element) !=0) {
+		if (head == prevNodes[0]) {
+
+			int newHeadNextLength = head.next[0].next[0] == null ? 0 : head.next[0].next[0].next.length;
+			if (newHeadNextLength == 0) {  // delete the only element
+				head.next = new SkipListNode[MAX_LEVEL];  // same operation as constructor
+			} else if (newHeadNextLength != MAX_LEVEL) {  // delete first node
+				T newNodeValue = head.next[0].next[0].value;
+				SkipListNode<T> newNode = new SkipListNode<>(newNodeValue, MAX_LEVEL);
+				SkipListNode<T>[] newNodes = new SkipListNode[MAX_LEVEL];
+				for (int i = 0; i < MAX_LEVEL; i++) {
+					newNodes[i] = newNode;
+					if (head.next[i].next[i] == null) {
+						newNodes[i].next[i] = null;
+					} else if (head.next[i].next[i].value.compareTo(newNodeValue) == 0) {
+						newNodes[i].next[i] = head.next[i].next[i].next[i];
+					} else {
+						newNodes[i].next[i] = head.next[i].next[i];
+					}
+				}
+				head.next = newNodes;
+			} else {
+				head.next = prevNodes[0].next[0].next;
+			}
+
+			return;
+		}
+
+		if (prevNodes[0].next[0] == null || prevNodes[0].next[0].value.compareTo(element) != 0) {
 			return;
 		}
 
 		for (int i = 0; i < MAX_LEVEL; i++) {
-			if(prevNodes[i].next[i]!= null && prevNodes[i].next[i].value.compareTo(element) !=0) {
+			if (prevNodes[i].next[i] != null && prevNodes[i].next[i].value.compareTo(element) != 0) {
 				break;
 			}
 
-			prevNodes[i].next[i] = prevNodes[i].next[i].next[i];
+			prevNodes[i].next[i] = prevNodes[i].next[i] == null ? null : prevNodes[i].next[i].next[i];
 		}
 
 
@@ -172,6 +210,9 @@ public class SkipList<T extends Comparable<T>> implements List<T> {
 
 	@Override
 	public String toString() {
+		if (isEmpty()) {
+			return "[ ]";
+		}
 		ArrayList<ArrayList<T>> lines = new ArrayList<>();
 
 		int size = 0;
