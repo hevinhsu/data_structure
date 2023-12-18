@@ -30,15 +30,10 @@ public class Bfs {
 
 	private void bfsLoop(Queue<GraphNode> queue, Set<GraphNode> set) {
 
-		for (; ; ) {
+		while (!queue.isEmpty()) {
 			GraphNode node = queue.poll();
 			if (Objects.isNull(node)) {
-				if (queue.isEmpty()) {
-					return;
-				} else {
-					// prevent null object existed in queue.
-					continue;
-				}
+				continue;
 			}
 
 			if (set.contains(node)) {
